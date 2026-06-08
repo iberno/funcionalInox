@@ -114,7 +114,7 @@ export default function Home() {
                   cat.slug === 'VETERINARIA' ? 'bg-gradient-to-br from-emerald-800 to-emerald-900' :
                   'bg-gradient-to-br from-amber-800 to-amber-900'
                 }`}>
-                  {cat.imagemUrl && <img src={cat.imagemUrl} alt={cat.nome} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />}
+                  {cat.imagemUrl && <img src={imageUrl(cat.imagemUrl)} alt={cat.nome} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6">
                     <p className="text-white/80 text-sm font-medium uppercase tracking-wider">Linha</p>
