@@ -24,7 +24,7 @@ jobs:
         working-directory: frontend
 
       - name: Build frontend
-        run: npm run build
+        run: VITE_BASE=/funcionalinox/ VITE_API_BASE=/funcionalinox/api/v1 npm run build
         working-directory: frontend
 
       - name: Build backend
