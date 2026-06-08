@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CategoriaSlug {
+  HOSPITALAR
+  VETERINARIA
+  COZINHA
+}
+
+model Categoria {
+  id        String        @id @default(cuid())
+  nome      String
+  slug      CategoriaSlug @unique
+  descricao String?
+  ordem     Int           @default(0)
+  produtos  Produto[]
+  projetos  Projeto[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model Produto {
+  id           String     @id @default(cuid())
+  nome         String
+  slug         String     @unique
+  descricao    String     @db.Text
+  destaque     String?    @db.Text
+  categoriaId  String
+  categoria    Categoria  @relation(fields: [categoriaId], references: [id])
+  subcategoria String?
+  padronizado  Boolean    @default(false)
+  preco_min    Float?
+  imagens      Imagem[]
+  projetos     ProjetoProduto[]
+  status       Boolean    @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([categoriaId])
+  @@index([slug])
+}
+
+model Imagem {
+  id        String  @id @default(cuid())
+  url       String
+  alt       String?
+  ordem     Int     @default(0)
+  produtoId String
+  produto   Produto @relation(fields: [produtoId], references: [id], onDelete: Cascade)
+
+  @@index([produtoId])
+}
+
+model Projeto {
+  id          String           @id @default(cuid())
+  titulo      String
+  descricao   String           @db.Text
+  cliente     String?
+  imagens     String[]
+  destaque    Boolean          @default(false)
+  categoriaId String
+  categoria   Categoria        @relation(fields: [categoriaId], references: [id])
+  produtos    ProjetoProduto[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  @@index([categoriaId])
+}
+
+model ProjetoProduto {
+  projetoId String
+  produtoId String
+  projeto   Projeto @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  produto   Produto @relation(fields: [produtoId], references: [id], onDelete: Cascade)
+
+  @@id([projetoId, produtoId])
+}
+
+model LeadOrcamento {
+  id          String   @id @default(cuid())
+  nome        String
+  email       String
+  telefone    String
+  empresa     String?
+  mensagem    String   @db.Text
+  produtos    String?
+  arquivo_url String?
+  lido        Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Contato {
+  id        String   @id @default(cuid())
+  nome      String
+  email     String
+  assunto   String
+  mensagem  String   @db.Text
+  lido      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
