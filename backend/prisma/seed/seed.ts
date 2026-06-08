@@ -1,4 +1,4 @@
-import { PrismaClient } from '../generated/prisma/client.js';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -171,7 +171,7 @@ async function main() {
       nome: 'Bancada de Cozinha Industrial',
       slug: 'bancada-cozinha-industrial',
       descricao: 'Bancada em aço inox para cozinha industrial com cuba e estante inferior. Reforçada para suportar equipamentos pesados.',
-      destaca: 'Reforçada · Com cuba · Estante inferior',
+      destaque: 'Reforçada · Com cuba · Estante inferior',
       categoriaId: cozinha.id,
       subcategoria: 'Bancadas',
       padronizado: true,
