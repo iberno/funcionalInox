@@ -60,7 +60,7 @@ jobs:
               npm i -g pm2
             fi
             cd ${{ secrets.DEPLOY_PATH }}/backend
-            export NODE_ENV=production
             npm ci --omit=dev
+            npx prisma generate
             npx prisma migrate deploy
-            pm2 startOrRestart ecosystem.config.js --update-env
+            NODE_ENV=production pm2 startOrRestart ecosystem.config.js --update-env
