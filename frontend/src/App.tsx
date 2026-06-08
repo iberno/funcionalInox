@@ -32,11 +32,12 @@ const queryClient = new QueryClient({
 })
 
 function App() {
+  const basename = import.meta.env.VITE_BASE || '/'
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
-          <BrowserRouter>
+          <BrowserRouter basename={basename}>
             <Routes>
               <Route element={<Layout />}>
                 <Route path="/" element={<Home />} />
