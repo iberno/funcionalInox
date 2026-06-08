@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from '@tanstack/react-query'
 import { getProdutos, getCategorias } from '../services/api'
+import { imageUrl } from '../utils'
 import type { Produto, Categoria } from '../types'
 export default function Produtos() {
   const [filtro, setFiltro] = useState<string | null>(null)
@@ -60,7 +61,7 @@ export default function Produtos() {
               >
                 <div className="aspect-square bg-gradient-to-br from-slate-200 to-slate-300 relative flex items-center justify-center overflow-hidden">
                   {produto.imagens?.[0] ? (
-                    <img src={produto.imagens[0].url} alt={produto.imagens[0].alt || produto.nome} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <img src={imageUrl(produto.imagens[0].url)} alt={produto.imagens[0].alt || produto.nome} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   ) : (
                     <span className="text-inox-400 text-sm">Sem imagem</span>
                   )}

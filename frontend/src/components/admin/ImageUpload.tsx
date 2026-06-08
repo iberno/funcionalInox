@@ -1,5 +1,8 @@
 import { useState, useRef } from 'react'
 import { Upload, X, GripVertical } from 'lucide-react'
+import { imageUrl } from '../../utils'
+
+const BASE = import.meta.env.VITE_API_BASE?.replace('/api/v1', '') || ''
 
 interface ImageItem {
   url: string
@@ -28,7 +31,7 @@ export default function ImageUpload({ images, onChange, max = 10 }: ImageUploadP
 
     try {
       const token = localStorage.getItem('admin_token')
-      const res = await fetch('/api/v1/admin/upload', {
+      const res = await fetch(`${BASE}/api/v1/admin/upload`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
@@ -65,7 +68,7 @@ export default function ImageUpload({ images, onChange, max = 10 }: ImageUploadP
         {images.map((img, i) => (
           <div key={i} className="relative group aspect-square rounded-lg border border-inox-200 overflow-hidden bg-inox-50">
             <img
-              src={img.url}
+              src={imageUrl(img.url)}
               alt={img.alt || ''}
               className="w-full h-full object-cover"
             />

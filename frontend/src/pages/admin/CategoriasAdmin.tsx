@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Plus, Pencil, Trash2, Upload } from 'lucide-react'
 import { useState, useRef } from 'react'
+import { imageUrl } from '../../utils'
 import { adminGetCategorias, adminCreateCategoria, adminUpdateCategoria, adminDeleteCategoria } from '../../services/api'
 
 export default function AdminCategorias() {
@@ -112,7 +113,7 @@ export default function AdminCategorias() {
                   </button>
                   <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleUpload} />
                 </div>
-                {form.imagemUrl && <img src={form.imagemUrl} alt="" className="mt-2 w-20 h-20 rounded-lg object-cover border border-inox-200" />}
+                {form.imagemUrl && <img src={imageUrl(form.imagemUrl)} alt="" className="mt-2 w-20 h-20 rounded-lg object-cover border border-inox-200" />}
               </div>
               <div className="flex justify-end gap-3 pt-4 border-t border-inox-100">
                 <button type="button" onClick={() => { setShowForm(false); setEditing(null) }} className="px-4 py-2 text-sm text-inox-600 hover:text-inox-900">Cancelar</button>
@@ -143,7 +144,7 @@ export default function AdminCategorias() {
                   <td className="px-4 py-3 font-medium text-inox-900">{c.nome}</td>
                   <td className="px-4 py-3 text-inox-500 font-mono text-xs hidden md:table-cell">{c.slug}</td>
                   <td className="px-4 py-3 text-center">
-                    {c.imagemUrl ? <img src={c.imagemUrl} alt="" className="w-8 h-8 rounded object-cover mx-auto" /> : <span className="text-inox-300 text-xs">—</span>}
+                    {c.imagemUrl ? <img src={imageUrl(c.imagemUrl)} alt="" className="w-8 h-8 rounded object-cover mx-auto" /> : <span className="text-inox-300 text-xs">—</span>}
                   </td>
                   <td className="px-4 py-3 text-center text-inox-500">{c._count?.produtos ?? 0}</td>
                   <td className="px-4 py-3 text-right">

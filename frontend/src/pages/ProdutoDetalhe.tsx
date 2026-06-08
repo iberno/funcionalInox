@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { useQuery } from '@tanstack/react-query'
 import { getProduto } from '../services/api'
 import { FileText, ArrowLeft, Check } from 'lucide-react'
+import { imageUrl } from '../utils'
 import type { Produto } from '../types'
 
 export default function ProdutoDetalhe() {
@@ -48,7 +49,7 @@ export default function ProdutoDetalhe() {
               {produto.imagens?.[0] ? (
                 <div className="aspect-square rounded-2xl overflow-hidden bg-inox-100">
                   <img
-                    src={produto.imagens[0].url}
+                    src={imageUrl(produto.imagens[0].url)}
                     alt={produto.imagens[0].alt || produto.nome}
                     className="w-full h-full object-cover"
                   />
@@ -62,7 +63,7 @@ export default function ProdutoDetalhe() {
                 <div className="grid grid-cols-4 gap-2">
                   {produto.imagens.slice(1).map((img) => (
                     <div key={img.id} className="aspect-square rounded-lg overflow-hidden bg-inox-100">
-                      <img src={img.url} alt={img.alt || produto.nome} className="w-full h-full object-cover" />
+                      <img src={imageUrl(img.url)} alt={img.alt || produto.nome} className="w-full h-full object-cover" />
                     </div>
                   ))}
                 </div>

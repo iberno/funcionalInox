@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { User, Camera, CheckCircle } from 'lucide-react'
 import { adminGetProfile, adminUpdateProfile, adminChangePassword, adminUploadAvatar } from '../../services/api'
 import { useAuth } from '../../contexts/AuthContext'
+import { imageUrl } from '../../utils'
 
 export default function AdminPerfil() {
   const queryClient = useQueryClient()
@@ -76,7 +77,7 @@ export default function AdminPerfil() {
         <div className="flex items-center gap-6">
           <div className="relative group">
             {avatarUrl ? (
-              <img src={avatarUrl} alt="" className="w-20 h-20 rounded-full object-cover" />
+              <img src={imageUrl(avatarUrl)} alt="" className="w-20 h-20 rounded-full object-cover" />
             ) : (
               <div className="w-20 h-20 rounded-full bg-brand-100 flex items-center justify-center">
                 <User className="w-8 h-8 text-brand-600" />
