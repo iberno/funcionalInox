@@ -4,6 +4,8 @@ import { useState, useRef } from 'react'
 import { imageUrl } from '../../utils'
 import { adminGetCategorias, adminCreateCategoria, adminUpdateCategoria, adminDeleteCategoria } from '../../services/api'
 
+const BASE = import.meta.env.VITE_API_BASE?.replace('/api/v1', '') || ''
+
 export default function AdminCategorias() {
   const queryClient = useQueryClient()
   const fileRef = useRef<HTMLInputElement>(null)
@@ -46,7 +48,7 @@ export default function AdminCategorias() {
       const token = localStorage.getItem('admin_token')
       const fd = new FormData()
       fd.append('files', file)
-      const res = await fetch('/api/v1/admin/upload', {
+      const res = await fetch(`${BASE}/api/v1/admin/upload`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: fd,
