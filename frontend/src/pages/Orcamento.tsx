@@ -15,10 +15,15 @@ export default function Orcamento() {
     mutationFn: () => enviarOrcamento(form),
     onSuccess: () => {
       setSent(true)
+      setForm({ nome: '', email: '', telefone: '', empresa: '', mensagem: '', produtos: '' })
+      setStep(1)
+      setTimeout(() => setSent(false), 4000)
     },
   })
 
   const update = (field: string, value: string) => setForm({ ...form, [field]: value })
+
+  const resetAndSend = () => mutation.mutate()
 
   if (sent) {
     return (
@@ -26,7 +31,10 @@ export default function Orcamento() {
         <div className="max-w-lg mx-auto px-4 text-center">
           <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-6" />
           <h1 className="text-3xl font-bold text-inox-900 mb-4">Orçamento solicitado!</h1>
-          <p className="text-inox-500">Recebemos sua solicitação e entraremos em contato em breve com uma proposta personalizada.</p>
+          <p className="text-inox-500 mb-6">Recebemos sua solicitação e entraremos em contato em breve com uma proposta personalizada.</p>
+          <button onClick={() => setSent(false)} className="text-brand-600 hover:text-brand-700 font-medium underline underline-offset-2">
+            Solicitar novo orçamento
+          </button>
         </div>
       </section>
     )
@@ -146,7 +154,7 @@ export default function Orcamento() {
                     Voltar
                   </button>
                   <button
-                    onClick={() => mutation.mutate()}
+                    onClick={resetAndSend}
                     disabled={!form.nome || !form.email || !form.telefone || mutation.isPending}
                     className="flex-1 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3.5 rounded-lg transition-all disabled:opacity-50 inline-flex items-center justify-center gap-2"
                   >

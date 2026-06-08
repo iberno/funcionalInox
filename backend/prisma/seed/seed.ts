@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -11,6 +12,18 @@ async function main() {
   await prisma.categoria.deleteMany();
   await prisma.leadOrcamento.deleteMany();
   await prisma.contato.deleteMany();
+  await prisma.admin.deleteMany();
+
+  // Create default admin
+  const adminPass = process.env.ADMIN_PASSWORD || 'admin123';
+  const hashed = await bcrypt.hash(adminPass, 10);
+  await prisma.admin.create({
+    data: {
+      username: process.env.ADMIN_USERNAME || 'admin',
+      password: hashed,
+      nome: 'Administrador',
+    },
+  });
 
   // Create Categorias
   const hospitalar = await prisma.categoria.create({

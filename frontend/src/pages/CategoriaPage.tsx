@@ -34,8 +34,14 @@ export default function CategoriaPage({ slug }: { slug: string }) {
         <meta name="description" content={info.desc} />
       </Helmet>
 
-      <section className="py-20 bg-inox-50/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className={`py-20 ${categoria?.imagemUrl ? 'relative' : 'bg-inox-50/50'}`}>
+        {categoria?.imagemUrl && (
+          <div className="absolute inset-0">
+            <img src={categoria.imagemUrl} alt="" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-white/80" />
+          </div>
+        )}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-12">
             <p className="text-brand-600 font-semibold text-sm tracking-widest uppercase mb-4">{info.title}</p>
             <h1 className="text-4xl font-bold text-inox-900">{info.title}</h1>
@@ -49,7 +55,12 @@ export default function CategoriaPage({ slug }: { slug: string }) {
                 to={`/produtos/${produto.slug}`}
                 className="group rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="aspect-square bg-gradient-to-br from-slate-200 to-slate-300 relative flex items-center justify-center">
+                <div className="aspect-square bg-gradient-to-br from-slate-200 to-slate-300 relative flex items-center justify-center overflow-hidden">
+                  {produto.imagens?.[0] ? (
+                    <img src={produto.imagens[0].url} alt={produto.imagens[0].alt || produto.nome} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  ) : (
+                    <span className="text-inox-400 text-sm">Sem imagem</span>
+                  )}
                   <div className="absolute top-3 right-3">
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
                       produto.padronizado ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'

@@ -9,7 +9,11 @@ export default function Contato() {
   const [sent, setSent] = useState(false)
   const mutation = useMutation({
     mutationFn: () => enviarContato(form),
-    onSuccess: () => setSent(true),
+    onSuccess: () => {
+      setSent(true)
+      setForm({ nome: '', email: '', assunto: '', mensagem: '' })
+      setTimeout(() => setSent(false), 4000)
+    },
   })
 
   if (sent) {
@@ -18,7 +22,10 @@ export default function Contato() {
         <div className="max-w-lg mx-auto px-4 text-center">
           <CheckCircle className="w-16 h-16 text-emerald-500 mx-auto mb-6" />
           <h1 className="text-3xl font-bold text-inox-900 mb-4">Mensagem enviada!</h1>
-          <p className="text-inox-500">Recebemos sua mensagem e responderemos em breve.</p>
+          <p className="text-inox-500 mb-6">Recebemos sua mensagem e responderemos em breve.</p>
+          <button onClick={() => setSent(false)} className="text-brand-600 hover:text-brand-700 font-medium underline underline-offset-2">
+            Enviar nova mensagem
+          </button>
         </div>
       </section>
     )
@@ -116,7 +123,7 @@ export default function Contato() {
             </div>
             <div className="bg-inox-50 rounded-xl p-6 text-center">
               <p className="text-inox-500 text-sm">Email</p>
-              <p className="text-inox-900 font-bold mt-1">vendas@funcionalinox.com.br</p>
+              <p className="text-inox-900 font-bold mt-1 break-all">vendas@funcionalinox.com.br</p>
             </div>
           </div>
         </div>

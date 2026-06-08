@@ -1,11 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import helmet from 'helmet';
+import { Request, Response, NextFunction } from 'express';
+import * as fs from 'fs';
+import { join } from 'path';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.setGlobalPrefix('api/v1');
 
@@ -14,7 +18,12 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   });
 
-  app.use(helmet());
+  app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false }));
+
+  app.useStaticAssets(join(process.cwd(), 'uploads'), { prefix: '/uploads' });
+
+  const frontendDist = join(process.cwd(), '..', 'frontend', 'dist');
+  app.useStaticAssets(frontendDist, { index: false });
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -37,6 +46,13 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
+
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) return next();
+    const indexPath = join(frontendDist, 'index.html');
+    if (fs.existsSync(indexPath)) res.sendFile(indexPath);
+    else next();
+  });
 
   await app.listen(process.env.PORT ?? 3001);
 }

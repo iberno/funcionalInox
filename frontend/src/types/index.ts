@@ -3,6 +3,7 @@ export interface Categoria {
   nome: string
   slug: 'HOSPITALAR' | 'VETERINARIA' | 'COZINHA'
   descricao: string | null
+  imagemUrl?: string | null
   ordem: number
   _count?: { produtos: number }
 }
@@ -38,4 +39,27 @@ export interface Projeto {
   destaque: boolean
   categoriaId: string
   categoria: Categoria
+}
+
+export interface LeadOrcamento {
+  id: string
+  nome: string
+  email: string
+  telefone: string
+  empresa: string | null
+  mensagem: string
+  produtos: string | null
+  arquivo_url: string | null
+  lido: boolean
+  createdAt: string
+}
+
+export interface ContatoMsg {
+  id: string
+  nome: string
+  email: string
+  assunto: string
+  mensagem: string
+  lido: boolean
+  createdAt: string
 }
