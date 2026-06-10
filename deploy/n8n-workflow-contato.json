@@ -26,7 +26,7 @@
             },
             {
               "name": "text",
-              "value": "=📬 *Novo Contato pelo Site*\n\n👤 *Nome:* {{ $json.nome }}\n📧 *Email:* {{ $json.email }}\n📌 *Assunto:* {{ $json.assunto }}\n💬 *Mensagem:*\n{{ $json.mensagem }}\n\n⏱️ {{ $json.timestamp }}"
+              "value": "=📬 *Novo Contato pelo Site*\n\n👤 *Nome:* {{ $json.body.nome }}\n📧 *Email:* {{ $json.body.email }}\n📌 *Assunto:* {{ $json.body.assunto }}\n💬 *Mensagem:*\n{{ $json.body.mensagem }}\n\n⏱️ {{ $json.body.timestamp }}"
             }
           ]
         },

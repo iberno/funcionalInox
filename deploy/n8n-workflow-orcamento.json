@@ -22,11 +22,11 @@
           "parameters": [
             {
               "name": "number",
-              "value": "=55{{ $json.telefone }}"
+              "value": "=55{{ $json.body.telefone }}"
             },
             {
               "name": "text",
-              "value": "=📋 *Novo Pedido de Orçamento*\n\n👤 *Nome:* {{ $json.nome }}\n📧 *Email:* {{ $json.email }}\n📞 *Telefone:* {{ $json.telefone }}\n{{ $json.empresa ? '🏢 *Empresa:* ' + $json.empresa + '\\n' : '' }}{{ $json.produtos ? '📦 *Produtos:* ' + $json.produtos + '\\n' : '' }}\n💬 *Mensagem:*\n{{ $json.mensagem }}\n\n⏱️ {{ $json.timestamp }}"
+              "value": "=📋 *Novo Pedido de Orçamento*\n\n👤 *Nome:* {{ $json.body.nome }}\n📧 *Email:* {{ $json.body.email }}\n📞 *Telefone:* {{ $json.body.telefone }}\n{{ $json.body.empresa ? '🏢 *Empresa:* ' + $json.body.empresa + '\\n' : '' }}{{ $json.body.produtos ? '📦 *Produtos:* ' + $json.body.produtos + '\\n' : '' }}\n💬 *Mensagem:*\n{{ $json.body.mensagem }}\n\n⏱️ {{ $json.body.timestamp }}"
             }
           ]
         },
