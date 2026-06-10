@@ -7,6 +7,7 @@ import { AdminOrcamentosController } from './admin-orcamentos.controller';
 import { AdminContatosController } from './admin-contatos.controller';
 import { AdminProfileController } from './admin-profile.controller';
 import { AdminUploadController } from './admin-upload.controller';
+import { AdminQrController } from './admin-qr.controller';
 
 @Module({
   imports: [AuthModule],
@@ -18,6 +19,7 @@ import { AdminUploadController } from './admin-upload.controller';
     AdminContatosController,
     AdminProfileController,
     AdminUploadController,
+    AdminQrController,
   ],
 })
 export class AdminModule {}
