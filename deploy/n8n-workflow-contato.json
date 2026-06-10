@@ -1,0 +1,66 @@
+{
+  "name": "Funcional Inox - Contato",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "funcional-contato",
+        "options": {}
+      },
+      "id": "webhook-contato",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://evolution-go:8080/send/text",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "1c1ea80b8b13895c8f145f9d72fc1b99958f6179f5c504d8e4896b1ebae55d19"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "5511999999999"
+            },
+            {
+              "name": "text",
+              "value": "=📬 *Novo Contato pelo Site*\n\n👤 *Nome:* {{ $json.nome }}\n📧 *Email:* {{ $json.email }}\n📌 *Assunto:* {{ $json.assunto }}\n💬 *Mensagem:*\n{{ $json.mensagem }}\n\n⏱️ {{ $json.timestamp }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "evolution-contato",
+      "name": "Enviar WhatsApp",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [500, 300]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Enviar WhatsApp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
