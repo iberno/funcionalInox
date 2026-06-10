@@ -30,6 +30,7 @@
             }
           ]
         },
+        "bodyContentType": "json",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
