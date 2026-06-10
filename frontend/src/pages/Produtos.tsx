@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useQuery } from '@tanstack/react-query'
 import { getProdutos, getCategorias } from '../services/api'
-import { imageUrl } from '../utils'
+import { imageUrl, placeholderUrl } from '../utils'
 import type { Produto, Categoria } from '../types'
 export default function Produtos() {
   const [filtro, setFiltro] = useState<string | null>(null)
@@ -60,11 +60,7 @@ export default function Produtos() {
                 className="group rounded-xl overflow-hidden bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               >
                 <div className="aspect-square bg-gradient-to-br from-slate-200 to-slate-300 relative flex items-center justify-center overflow-hidden">
-                  {produto.imagens?.[0] ? (
-                    <img src={imageUrl(produto.imagens[0].url)} alt={produto.imagens[0].alt || produto.nome} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                  ) : (
-                    <span className="text-inox-400 text-sm">Sem imagem</span>
-                  )}
+                  <img src={imageUrl(produto.imagens?.[0]?.url, placeholderUrl(produto.categoria?.slug))} alt={produto.imagens?.[0]?.alt || produto.nome} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                   <div className="absolute top-3 right-3">
                     <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${
                       produto.padronizado ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'

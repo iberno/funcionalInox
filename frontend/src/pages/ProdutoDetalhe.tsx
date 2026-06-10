@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import { useQuery } from '@tanstack/react-query'
 import { getProduto } from '../services/api'
 import { FileText, ArrowLeft, Check } from 'lucide-react'
-import { imageUrl } from '../utils'
+import { imageUrl, placeholderUrl } from '../utils'
 import type { Produto } from '../types'
 
 export default function ProdutoDetalhe() {
@@ -46,19 +46,13 @@ export default function ProdutoDetalhe() {
 
           <div className="grid md:grid-cols-2 gap-12">
             <div className="space-y-4">
-              {produto.imagens?.[0] ? (
-                <div className="aspect-square rounded-2xl overflow-hidden bg-inox-100">
-                  <img
-                    src={imageUrl(produto.imagens[0].url)}
-                    alt={produto.imagens[0].alt || produto.nome}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ) : (
-                <div className="aspect-square bg-gradient-to-br from-slate-200 to-slate-300 rounded-2xl flex items-center justify-center">
-                  <span className="text-inox-400 font-medium">Sem imagem</span>
-                </div>
-              )}
+              <div className="aspect-square rounded-2xl overflow-hidden bg-inox-100">
+                <img
+                  src={imageUrl(produto.imagens?.[0]?.url, placeholderUrl(produto.categoria?.slug))}
+                  alt={produto.imagens?.[0]?.alt || produto.nome}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               {produto.imagens && produto.imagens.length > 1 && (
                 <div className="grid grid-cols-4 gap-2">
                   {produto.imagens.slice(1).map((img) => (
