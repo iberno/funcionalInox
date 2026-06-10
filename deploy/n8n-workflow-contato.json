@@ -15,19 +15,8 @@
     },
     {
       "parameters": {
-        "method": "POST",
         "url": "http://evolution-go:8080/send/text",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "apikey",
-              "value": "1c1ea80b8b13895c8f145f9d72fc1b99958f6179f5c504d8e4896b1ebae55d19"
-            }
-          ]
-        },
+        "method": "POST",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
@@ -38,6 +27,15 @@
             {
               "name": "text",
               "value": "=📬 *Novo Contato pelo Site*\n\n👤 *Nome:* {{ $json.nome }}\n📧 *Email:* {{ $json.email }}\n📌 *Assunto:* {{ $json.assunto }}\n💬 *Mensagem:*\n{{ $json.mensagem }}\n\n⏱️ {{ $json.timestamp }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "1c1ea80b8b13895c8f145f9d72fc1b99958f6179f5c504d8e4896b1ebae55d19"
             }
           ]
         },
