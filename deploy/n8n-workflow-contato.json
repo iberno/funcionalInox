@@ -18,6 +18,7 @@
         "url": "http://evolution-go:8080/send/text",
         "method": "POST",
         "sendBody": true,
+        "jsonBody": true,
         "bodyParameters": {
           "parameters": [
             {
@@ -30,7 +31,6 @@
             }
           ]
         },
-        "bodyContentType": "json",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
